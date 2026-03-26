@@ -1,27 +1,21 @@
 class Character{
-
-    constructor(data){
-       return data;
-    }
-
     CharacterModel(position){
+        const charExist = document.getElementsByClassName('character') ?? document.getElementsByClassName('character');
         const charModel = document.createElement("div");
         charModel.classList.add("character");
         charModel.style.left = `${position.clientX}px`;
         charModel.style.top = `${position.clientY}px`;
-        document.getElementById("root").appendChild(charModel);
-
-        if (localStorage.getItem("position") !== null) {
-
-            console.log(localStorage.getItem('position'));
+        
+        if (document.getElementsByClassName('character').length == 0) {
+            document.getElementById("root").appendChild(charModel);
+        }else{
+            console.log(charExist[0]);
+            charExist[0].style.left = `${position.clientX}px`;
+        charExist[0].style.top = `${position.clientY}px`;
             
-            if (position == localStorage.getItem('position')) {
-                this.ValidateCharCount(position);
-
-                console.log("hello world");
-                
-            }
         }
+
+        this.ValidateCharCount(position);
     }
 
     ValidateCharCount(position){
@@ -31,8 +25,9 @@ class Character{
         if (charCount > 1) {
             // Remove the oldest character model
             const firstChar = root.getElementsByClassName("character")[0];
-            if (firstChar) {
-                firstChar.remove();
+            if (!firstChar) {
+                // firstChar.remove();
+                
             }
         }
     }

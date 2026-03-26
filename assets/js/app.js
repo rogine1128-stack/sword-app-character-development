@@ -1,10 +1,7 @@
 import Character from "./character.js";
+import MapObjects from './objects.js';
 
 class App {
-
-    SavePosition(position){
-        localStorage.setItem("position", JSON.stringify(position));
-    }
 
     mouseRippleEffect(position){
         this.Character = new Character();
@@ -14,7 +11,6 @@ class App {
         ripple.style.left = `${position.clientX}px`;
         ripple.style.top = `${position.clientY}px`;
         document.getElementById("root").appendChild(ripple);
-        this.SavePosition(position);
         this.Character.ValidateCharCount(position);
 
         setTimeout(() => {
