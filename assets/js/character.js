@@ -1,39 +1,33 @@
 class Character{
-    CharacterModel(position){
-        const charExist = document.getElementsByClassName('character') ?? document.getElementsByClassName('character');
-        const charModel = document.createElement("div");
-        charModel.classList.add("character");
-        charModel.style.left = `${position.clientX}px`;
-        charModel.style.top = `${position.clientY}px`;
+    constructor(data){
+        // console.log(data);
         
-        if (document.getElementsByClassName('character').length == 0) {
-            document.getElementById("root").appendChild(charModel);
-        }else{
-            console.log(charExist[0]);
-            charExist[0].style.left = `${position.clientX}px`;
-        charExist[0].style.top = `${position.clientY}px`;
-            
-        }
-
-        this.ValidateCharCount(position);
     }
 
-    ValidateCharCount(position){
-        const root = document.getElementById("root");
-        const charCount = root.getElementsByClassName("character").length;
-
-        if (charCount > 1) {
-            // Remove the oldest character model
-            const firstChar = root.getElementsByClassName("character")[0];
-            if (!firstChar) {
-                // firstChar.remove();
-                
-            }
-        }
+    CharacterModel(position){
+        this.MoveCharacter(position);
     }
 
     MoveCharacter(position){
-       
+        const chtr = this.GetElement('.character');
+        chtr.style.left = `${position.clientX}px`;
+        chtr.style.top = `${position.clientY}px`;
+    }
+
+    IsElementExist(el){
+        let isExist = false;
+
+        if (document.querySelector(el) != null) {
+           isExist = true;
+        }else{
+            isExist = false;
+        }
+
+        return isExist;
+    }
+
+    GetElement(el){
+        return document.querySelector(el);
     }
 
 }

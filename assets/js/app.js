@@ -3,38 +3,72 @@ import MapObjects from './objects.js';
 
 class App {
 
+    constructor(){
+        this.charEl = document.querySelector('.character .center');
+        this.rootEl = document.getElementById("root");
+    }
+
+    renderObjects(){
+        this.MapObjects = new MapObjects();
+        this.MapObjects.Trees();
+    }
+
     mouseRippleEffect(position){
         this.Character = new Character();
-
         const ripple = document.createElement("div");
+        this.clickedPos = position;
+
         ripple.classList.add("ripple");
         ripple.style.left = `${position.clientX}px`;
         ripple.style.top = `${position.clientY}px`;
-        document.getElementById("root").appendChild(ripple);
-        this.Character.ValidateCharCount(position);
+        this.rootEl.appendChild(ripple);
+
+        this.Character.CharacterModel(position);
+        this.isReachedCharDestination(this.charEl);
 
         setTimeout(() => {
             ripple.remove();
-            this.Character.CharacterModel(position);
-        }, 1000);
+        }, 2000);
     }
 
     handleMouseClick(position){
         this.mouseRippleEffect(position);
-
-        const clientX = position.clientX;
-        const clientY = position.clientY;
-
-        const pageX = position.pageX;
-        const pageY = position.pageY;
-
-        const offsetX = position.offsetX;
-        const offsetY = position.offsetY;
-
     }   
+
+    isCloseByHundred(num1, num2) {
+        // Calculate the absolute difference between the two numbers.
+        const difference = Math.abs(num1 - num2);
+        
+        // Check if the difference is less than or equal to 20.
+        return difference <= 20;
+    }
+
+    isReachedCharDestination(char){  
+        this.MapObjects = new MapObjects();
+       
+        const interval = setInterval(() => {
+            const rec = this.charEl.getBoundingClientRect();
+            const xPos = rec.x;
+            const yPos = Math.abs(rec.y);            
+
+            // validate the position of the destination and the character
+            if (this.isCloseByHundred(xPos, this.clickedPos.clientX)) {
+                console.log("destination reached") 
+                // removed the interval when the destination is reached
+                this.MapObjects.IsCharacterInFront(xPos, yPos);
+                clearInterval(interval);
+            }
+            
+        }, 500)
+        
+    }
+
+    
 }
 
-new App();
+const appModel = new App();
+
+appModel.renderObjects();
 
 window.addEventListener("contextmenu", function(event){
     event.preventDefault();

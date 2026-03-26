@@ -30,10 +30,11 @@ body{
 }
 
 .ripple{
-    background: red;
+    background: blue;
     height: 20px;
     width: 20px;
     position: absolute;
+    opacity: .5;
 }
 
 .character{
@@ -43,38 +44,30 @@ body{
     background: var(--primary-color);
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
-    transition: 2s ease-in-out;
+    transform: translate(-50%, -90%);
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    z-index: 2;
 }
 
-.char_1{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100px;
-    width: 50px;
-    background: red;
-    transform: translate(0);
-    transition: 1s ease-in-out;
-}
-
-.char_1:hover{
-    left: 100%;
-}
-
-.char_2{
-    height: 100px;
-    width: 50px;
-    background: blue;
-    left: 60%;
-}
-
-.end_pos{
-    position: absolute;
+.character .center{
     height: 20px;
     width: 20px;
-    background: green;
-    right: 0;
-    top: 50px;
+    background: red;
 }
 
+.character.walking{
+    transition: 4s ease;
+}
+
+.character.running{
+    transition: 2s ease;
+}
+
+.tree{
+    background: red;
+    height: 100px;
+    width: 50px;
+    position: absolute;
+}
