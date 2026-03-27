@@ -1,0 +1,14 @@
+[
+    {
+        "towerPosTop": [ 10, 40, 70 ],
+        "towerPosBottom": [80, 20]
+    },
+    {
+        "towerPosTop": [ 10, 40, 70 ],
+        "towerPosBottom": [30, 50]
+    },
+    {
+        "towerPosTop": [20, 50],
+        "towerPosBottom": [50, 70, 30, 10]
+    }
+]

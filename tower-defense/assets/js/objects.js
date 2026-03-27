@@ -1,0 +1,82 @@
+class MapObjects{
+    constructor(data){
+        this.data = data;
+        this.rootEl = document.getElementById("root");
+        this.pathElTop = document.querySelector('.path-tower-cont-top');
+        this.pathElBottom = document.querySelector('.path-tower-cont-bottom');
+        this.positions = {
+            top: [],
+            bottom: []
+        };
+    }
+
+    async Towers(){
+        let towerCount = 4;
+        const data = await this.GetDataFromJson('./assets/json/levels.json');
+        this.positions.top = data[0].towerPosTop;
+        this.positions.bottom = data[0].towerPosBottom;
+        
+        console.log(this.positions);
+        
+        for (let i = 0; i < this.positions.top.length; i++) {
+            let towerTop = document.createElement("div");
+            towerTop.innerHTML = `
+                <div class="tower_cont">
+                    <div class="tower_block"></div>
+                    <div class="tower_range"></div>
+                </div>
+            `;
+            towerTop.classList.add("tower");
+            towerTop.style.left = `${this.positions.top[i]}%`;
+            towerTop.setAttribute('id', `towerTop-${i}`);
+            this.pathElTop.appendChild(towerTop);
+        }
+
+        for (let j = 0; j < this.positions.bottom.length; j++) {
+            let towerBottom = document.createElement("div");
+            towerBottom.innerHTML = `
+                <div class="tower_cont">
+                    <div class="tower_block"></div>
+                    <div class="tower_range"></div>
+                </div>
+            `;
+            towerBottom.classList.add("tower");
+            towerBottom.style.left = `${this.positions.bottom[j]}%`;
+            towerBottom.setAttribute('id', `towerBottom-${j}`);
+            this.pathElBottom.appendChild(towerBottom);
+        }
+
+
+    }
+
+
+    RandomizeTowerPos(min, max){
+        const randomNum = Math.random() * (max - min) + min;
+
+        return Math.floor(randomNum);
+    }
+
+    isCloseByHundred(num1, num2) {
+        // Calculate the absolute difference between the two numbers.
+        const difference = Math.abs(num1 - num2);
+        
+        // Check if the difference is less than or equal to 20.
+        return difference <= 10;
+    }
+
+    async GetDataFromJson(url){
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+}
+
+export default MapObjects;

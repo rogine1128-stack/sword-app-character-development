@@ -49,7 +49,10 @@ class App {
         const interval = setInterval(() => {
             const rec = this.charEl.getBoundingClientRect();
             const xPos = rec.x;
-            const yPos = Math.abs(rec.y);            
+            const yPos = Math.abs(rec.y);     
+            
+            console.log(xPos);
+            
 
             // validate the position of the destination and the character
             if (this.isCloseByHundred(xPos, this.clickedPos.clientX)) {
